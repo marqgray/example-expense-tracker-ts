@@ -6,13 +6,17 @@ interface Transaction {
 
 const app = new (class {
   htmlElements = {
-    balance: document.getElementById("balance"),
-    moneyDisplayPlus: document.getElementById("money-plus"),
-    moneyDisplayMinus: document.getElementById("money-minus"),
-    list: document.getElementById("list"),
-    form: document.getElementById("form"),
-    text: document.getElementById("text"),
-    amount: document.getElementById("amount"),
+    balance: <HTMLHeadingElement>document.getElementById("balance"),
+    moneyDisplayPlus: <HTMLParagraphElement>(
+      document.getElementById("money-plus")
+    ),
+    moneyDisplayMinus: <HTMLParagraphElement>(
+      document.getElementById("money-minus")
+    ),
+    list: <HTMLUListElement>document.getElementById("list"),
+    form: <HTMLFormElement>document.getElementById("form"),
+    text: <HTMLInputElement>document.getElementById("text"),
+    amount: <HTMLInputElement>document.getElementById("amount"),
   };
   dummyTransactions: Transaction[] = [
     { id: 1, text: "Flower", amount: -20 },
