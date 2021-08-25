@@ -27,11 +27,7 @@ const app = new (class {
   transactions = this.dummyTransactions;
 
   constructor() {
-    this.htmlElements.list.innerHTML = "";
-    this.transactions.forEach((transaction) => {
-      this.addTransactionDOM(transaction);
-    });
-    this.updateValues();
+    this.init();
     this.htmlElements.form.addEventListener("submit", (e) => {
       this.addTransaction(e);
     });
@@ -60,6 +56,14 @@ const app = new (class {
 
   generateId() {
     return Math.floor(Math.random() * 1000000000);
+  }
+
+  init() {
+    this.htmlElements.list.innerHTML = "";
+    this.transactions.forEach((transaction) => {
+      this.addTransactionDOM(transaction);
+    });
+    this.updateValues();
   }
 
   addTransactionDOM(transaction: Transaction) {
