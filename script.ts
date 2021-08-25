@@ -31,6 +31,35 @@ const app = new (class {
     this.transactions.forEach((transaction) => {
       this.addTransactionDOM(transaction);
     });
+    this.updateValues();
+    this.htmlElements.form.addEventListener("submit", (e) => {
+      this.addTransaction(e);
+    });
+  }
+
+  addTransaction(e: Event) {
+    e.preventDefault();
+    if (
+      this.htmlElements.text.value.trim() === "" ||
+      this.htmlElements.amount.value.trim() === ""
+    ) {
+      alert("Please add text and amount.");
+    } else {
+      const transaction: Transaction = {
+        id: this.generateId(),
+        text: this.htmlElements.text.value,
+        amount: Number(this.htmlElements.amount.value),
+      };
+      this.transactions.push(transaction);
+      this.addTransactionDOM(transaction);
+      this.updateValues();
+      this.htmlElements.text.value = "";
+      this.htmlElements.amount.value = "";
+    }
+  }
+
+  generateId() {
+    return Math.floor(Math.random() * 1000000000);
   }
 
   addTransactionDOM(transaction: Transaction) {
