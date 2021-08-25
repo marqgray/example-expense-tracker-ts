@@ -21,4 +21,6 @@ const app = new (class {
     { id: 3, text: "Book", amount: -10 },
     { id: 4, text: "Camera", amount: 150 },
   ];
+
+  transactions = this.dummyTransactions;
 })();
