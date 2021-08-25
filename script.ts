@@ -72,9 +72,18 @@ const app = new (class {
     item.classList.add(transaction.amount < 0 ? "minus" : "plus");
     item.innerHTML = `
       ${transaction.text} <span>${sign}${Math.abs(transaction.amount)}</span>
-      <button class="delete-btn">x</button>
+      <button class="delete-btn" onclick="app.removeTransaction(${
+        transaction.id
+      })">x</button>
     `;
     this.htmlElements.list.appendChild(item);
+  }
+
+  removeTransaction(id) {
+    this.transactions = this.transactions.filter(
+      (transaction) => transaction.id !== id
+    );
+    this.init();
   }
 
   updateValues() {
