@@ -18,13 +18,12 @@ const app = new (class {
     text: <HTMLInputElement>document.getElementById("text"),
     amount: <HTMLInputElement>document.getElementById("amount"),
   };
-  dummyTransactions: Transaction[] = [
-    { id: 1, text: "Flower", amount: -20 },
-    { id: 2, text: "Salary", amount: 300 },
-    { id: 3, text: "Book", amount: -10 },
-    { id: 4, text: "Camera", amount: 150 },
-  ];
-  transactions = this.dummyTransactions;
+
+  localStorageTransactions = JSON.parse(localStorage.getItem("transactions"));
+  transactions =
+    localStorage.getItem("transactions") !== null
+      ? this.localStorageTransactions
+      : [];
 
   constructor() {
     this.init();
@@ -49,6 +48,7 @@ const app = new (class {
       this.transactions.push(transaction);
       this.addTransactionDOM(transaction);
       this.updateValues();
+      this.updateLocalStorage();
       this.htmlElements.text.value = "";
       this.htmlElements.amount.value = "";
     }
@@ -56,6 +56,10 @@ const app = new (class {
 
   generateId() {
     return Math.floor(Math.random() * 1000000000);
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem("transactions", JSON.stringify(this.transactions));
   }
 
   init() {
@@ -83,6 +87,7 @@ const app = new (class {
     this.transactions = this.transactions.filter(
       (transaction) => transaction.id !== id
     );
+    this.updateLocalStorage();
     this.init();
   }
 
